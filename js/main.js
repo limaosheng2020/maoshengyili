@@ -152,38 +152,14 @@ function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
   form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const name = form.querySelector('input[name="name"]').value;
-    const contact = form.querySelector('input[name="contact"]').value;
-    const type = form.querySelector('select[name="type"]').value;
-    const message = form.querySelector('textarea[name="message"]').value;
+    const name = form.querySelector('input[name="name"]').value.trim();
+    const contact = form.querySelector('input[name="contact"]').value.trim();
 
     if (!name || !contact) {
+      e.preventDefault();
       alert('请至少填写您的称呼和联系方式');
-      return;
     }
-
-    // 提交到 Netlify Forms
-    const formData = new FormData();
-    formData.append('form-name', 'contact');
-    formData.append('name', name);
-    formData.append('contact', contact);
-    formData.append('type', type);
-    formData.append('message', message);
-
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString()
-    })
-    .then(() => {
-      alert(`${name}，提交成功！我会尽快通过微信或手机联系您。\n\n如有急事可直接添加微信：MSYLJBB\n或拨打电话：17612193548`);
-      form.reset();
-    })
-    .catch(() => {
-      alert('提交成功！我会尽快与您联系。\n\n微信：MSYLJBB\n手机：17612193548');
-      form.reset();
-    });
+    // 验证通过则让表单原生提交到 Netlify
   });
 }
 
