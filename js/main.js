@@ -152,14 +152,16 @@ function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
   form.addEventListener('submit', function(e) {
+    e.preventDefault();
     const name = form.querySelector('input[name="name"]').value.trim();
     const contact = form.querySelector('input[name="contact"]').value.trim();
 
     if (!name || !contact) {
-      e.preventDefault();
       alert('请至少填写您的称呼和联系方式');
+      return;
     }
-    // 验证通过则让表单原生提交到 Netlify
+    // 验证通过，原生提交到 Netlify
+    form.submit();
   });
 }
 
