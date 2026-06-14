@@ -293,24 +293,28 @@
         <span>上海</span>
       </div>
       <div class="contact-item">
-        <span class="contact-icon">📱</span>
-        <span>关注抖音：李玄子</span>
+        <span class="contact-icon">💬</span>
+        <span>微信：MSYLJBB</span>
       </div>
       <div class="contact-item">
-        <span class="contact-icon">💬</span>
-        <span>私信咨询，免费初诊户型</span>
+        <span class="contact-icon">📞</span>
+        <span>手机：17612193548</span>
       </div>
     </div>
-    <form id="contactForm" class="contact-form">
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm" class="contact-form">
+      <input type="hidden" name="form-name" value="contact">
+      <p style="display:none;">
+        <label>Don't fill this out: <input name="bot-field"></label>
+      </p>
       <div class="form-group">
-        <input type="text" placeholder="您的称呼" required>
+        <input type="text" name="name" placeholder="您的称呼" required>
       </div>
       <div class="form-group">
-        <input type="text" placeholder="联系方式（微信/手机）" required>
+        <input type="text" name="contact" placeholder="联系方式（微信/手机）" required>
       </div>
       <div class="form-group">
-        <select>
-          <option>咨询类型</option>
+        <select name="type">
+          <option value="">咨询类型</option>
           <option>整装设计</option>
           <option>风水布局</option>
           <option>八字命理</option>
@@ -318,7 +322,7 @@
         </select>
       </div>
       <div class="form-group">
-        <textarea rows="4" placeholder="简单描述您的需求"></textarea>
+        <textarea name="message" rows="4" placeholder="简单描述您的需求"></textarea>
       </div>
       <button type="submit" class="btn-primary">提交咨询</button>
     </form>

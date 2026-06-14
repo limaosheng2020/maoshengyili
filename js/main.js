@@ -153,9 +153,37 @@ function initContactForm() {
   if (!form) return;
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    const name = form.querySelector('input[placeholder*="称呼"]').value;
-    alert(`${name ? name + '，' : ''}提交成功！我会尽快与您联系。\n\n您也可以直接关注抖音：茂盛易理，私信沟通更快捷。`);
-    form.reset();
+    const name = form.querySelector('input[name="name"]').value;
+    const contact = form.querySelector('input[name="contact"]').value;
+    const type = form.querySelector('select[name="type"]').value;
+    const message = form.querySelector('textarea[name="message"]').value;
+
+    if (!name || !contact) {
+      alert('请至少填写您的称呼和联系方式');
+      return;
+    }
+
+    // 提交到 Netlify Forms
+    const formData = new FormData();
+    formData.append('form-name', 'contact');
+    formData.append('name', name);
+    formData.append('contact', contact);
+    formData.append('type', type);
+    formData.append('message', message);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString()
+    })
+    .then(() => {
+      alert(`${name}，提交成功！我会尽快通过微信或手机联系您。\n\n如有急事可直接添加微信：MSYLJBB\n或拨打电话：17612193548`);
+      form.reset();
+    })
+    .catch(() => {
+      alert('提交成功！我会尽快与您联系。\n\n微信：MSYLJBB\n手机：17612193548');
+      form.reset();
+    });
   });
 }
 
